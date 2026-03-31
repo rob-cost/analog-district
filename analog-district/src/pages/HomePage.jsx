@@ -1,18 +1,17 @@
-import "./HomePage.css";
+import axios from "axios";
 import { Header } from "../components/Header";
-
 import checkmarkIcon from "../assets/images/icons/checkmark.png";
-
-import { products } from "../../starting-code/data/products";
+import "./HomePage.css";
+import { useEffect, useState } from "react";
 
 export function HomePage() {
-  fetch("http://localhost:3000/api/products")
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/products").then(response => {
+      setProducts(response.data);
     });
+  }, []);
+
   return (
     <>
       <title>Analog District</title>
@@ -21,7 +20,7 @@ export function HomePage() {
         <div className="products-grid">
           {products.map(product => {
             return (
-              <div className="product-container">
+              <div key={product.key} className="product-container">
                 <div className="product-image-container">
                   <img className="product-image" src={product.image} />
                 </div>
