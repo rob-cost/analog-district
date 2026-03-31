@@ -1,11 +1,16 @@
+import "./NotFound.css";
 import { Header } from "../components/Header";
 
 export function NotFound() {
   return (
     <>
+      <title>Not Found</title>
       <Header />
-
-      <h1 className="not-found-title">404 - Not Found</h1>
+      <div className="not-found-container">
+        <div className="not-found-title">
+          <h1>404 - Not Found</h1>
+        </div>
+      </div>
     </>
   );
 }
