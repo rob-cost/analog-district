@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 import { Fragment } from "react";
 import buyAgainIcon from "../../assets/images/icons/buy-again.png";
 
@@ -10,6 +10,8 @@ export function OrderDetails({ order }) {
       {order.products.map(orderProduct => {
         return (
           <Fragment key={orderProduct.productId}>
+            {console.log(orderProduct)}
+            {console.log(order)}
             <div className="product-image-container">
               <img src={orderProduct.product.image} />
             </div>
@@ -30,11 +32,11 @@ export function OrderDetails({ order }) {
             </div>
 
             <div className="product-actions">
-              <Link href="/tracking">
+              <NavLink to={`/tracking/${order.id}/${orderProduct.productId}`}>
                 <button className="track-package-button button-secondary">
                   Track package
                 </button>
-              </Link>
+              </NavLink>
             </div>
           </Fragment>
         );
