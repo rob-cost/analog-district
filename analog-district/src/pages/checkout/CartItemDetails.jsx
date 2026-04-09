@@ -6,15 +6,19 @@ export function CartItemDetails({ cartItem, loadCart }) {
   const [isUpdatingQuantity, setIsUpdatingQuantity] = useState(false);
   const [quantity, setQuantity] = useState(cartItem.quantity);
 
-  const UpdateQuantity = async () => {
-    if (isUpdatingQuantity) {
+  const startEditing = () => {
+    setIsUpdatingQuantity(true);
+  };
+
+  const saveQuantity = async () => {
+    try {
       await axios.put(`/api/cart-items/${cartItem.productId}`, {
         quantity,
       });
       await loadCart();
       setIsUpdatingQuantity(false);
-    } else {
-      setIsUpdatingQuantity(true);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -25,7 +29,7 @@ export function CartItemDetails({ cartItem, loadCart }) {
 
   const handleKeyEvent = event => {
     if (event.key === "Enter") {
-      UpdateQuantity();
+      saveQuantity();
     } else if (event.key === "Escape") {
       setQuantity(cartItem.quantity);
       setIsUpdatingQuantity(false);
@@ -63,7 +67,7 @@ export function CartItemDetails({ cartItem, loadCart }) {
 
           <span
             className="update-quantity-link link-primary"
-            onClick={UpdateQuantity}
+            onClick={isUpdatingQuantity ? saveQuantity : startEditing}
           >
             Update
           </span>
