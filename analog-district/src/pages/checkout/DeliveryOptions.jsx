@@ -10,10 +10,14 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
       <div className="delivery-options-title">Choose a delivery option:</div>
       {deliveryOptions.map(deliveryOption => {
         const updateDeliveryOption = async () => {
-          await axios.put(`/api/cart-items/${cartItem.productId}`, {
-            deliveryOptionId: deliveryOption.id,
-          });
-          await loadCart();
+          try {
+            await axios.put(`/api/cart-items/${cartItem.productId}`, {
+              deliveryOptionId: deliveryOption.id,
+            });
+            await loadCart();
+          } catch (error) {
+            console.error("Error updating delivery option:", error);
+          }
         };
         return (
           <div

@@ -6,7 +6,11 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
   const navigate = useNavigate();
 
   const createOrder = async () => {
-    await axios.post("/api/orders");
+    try {
+      await axios.post("/api/orders");
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
     await loadCart();
     navigate("/orders");
   };

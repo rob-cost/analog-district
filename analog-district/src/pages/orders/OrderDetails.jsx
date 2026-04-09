@@ -10,11 +10,15 @@ export function OrderDetails({ order, loadCart }) {
     <div className="order-details-grid">
       {order.products.map(orderProduct => {
         const addToCart = async () => {
-          await axios.post("/api/cart-items", {
-            productId: orderProduct.productId,
-            quantity: 1,
-          });
-          loadCart();
+          try {
+            await axios.post("/api/cart-items", {
+              productId: orderProduct.productId,
+              quantity: 1,
+            });
+            loadCart();
+          } catch (error) {
+            console.error("Error adding to cart:", error);
+          }
         };
         return (
           <Fragment key={orderProduct.productId}>

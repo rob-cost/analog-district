@@ -17,10 +17,14 @@ export function TrackingPage({ cart }) {
   // Get the order details for the current order and product
   useEffect(() => {
     const fetchOrderProducts = async () => {
-      const response = await axios.get(
-        `/api/orders/${orderId}?expand=products`,
-      );
-      setCurrentOrder(response.data);
+      try {
+        const response = await axios.get(
+          `/api/orders/${orderId}?expand=products`,
+        );
+        setCurrentOrder(response.data);
+      } catch (error) {
+        console.error("Error fetching order data:", error);
+      }
     };
 
     fetchOrderProducts();

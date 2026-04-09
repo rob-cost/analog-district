@@ -10,10 +10,14 @@ export function Product({ product, loadCart }) {
   const [addedToCart, setAddedToCart] = useState(false);
 
   const addToCart = async () => {
-    await axios.post("/api/cart-items", {
-      productId: product.id,
-      quantity,
-    });
+    try {
+      await axios.post("/api/cart-items", {
+        productId: product.id,
+        quantity,
+      });
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
     setAddedToCart(true);
     await loadCart();
   };

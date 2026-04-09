@@ -36,7 +36,11 @@ export function CartItemDetails({ cartItem, loadCart }) {
     }
   };
   const deleteCartItem = async () => {
-    await axios.delete(`/api/cart-items/${cartItem.productId}`);
+    try {
+      await axios.delete(`/api/cart-items/${cartItem.productId}`);
+    } catch (error) {
+      console.error("Error deleting cart item:", error);
+    }
     await loadCart();
   };
 
