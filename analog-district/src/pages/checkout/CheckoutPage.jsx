@@ -41,7 +41,7 @@ export function CheckoutPage({ cart, loadCart }) {
   return (
     <>
       <title>Checkout</title>
-      <CheckoutHeader />
+      <CheckoutHeader cart={cart} />
       <div className="checkout-page">
         <div className="page-title">Review your order</div>
 
